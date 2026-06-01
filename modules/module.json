@@ -1,0 +1,15 @@
+{
+    "name": "Discord Webhook by WazdL",
+    "id": "discordwebhookwazdl",
+    "uuid": "discordwebhookwazdl",
+    "type": "module",
+    "description": "Notifications Discord via webhook pour ClientXCMS. Alertes en temps réel sur les nouveaux clients, paiements, créations/suspensions de services.",
+    "version": "1.0",
+    "icon": "bi bi-discord",
+    "author": {
+        "name": "WazdL Team"
+    },
+    "providers": [
+        "App\\Modules\\DiscordWebhookWazdL\\DiscordWebhookWazdLServiceProvider"
+    ]
+}
