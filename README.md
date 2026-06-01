@@ -35,7 +35,7 @@
 
 ## ⚙️ Installation
 
-1. Téléchargez ou clonez ce dépôt GitHub.
+1. Téléchargez depuis github, de votre espace admin côté extenion ou clonez ce dépôt GitHub.
 2. Copiez le dossier du module dans le répertoire `modules/discordwebhookwazdl/` de votre installation ClientXCMS.
 3. Allez dans le panel d'administration de ClientXCMS, rubrique **Modules**, et **Activez** le module "Discord Webhook".
 4. Rendez-vous dans **Configuration** (ou via le menu de gauche) -> **Discord Webhook**.
