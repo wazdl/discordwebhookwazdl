@@ -8,14 +8,15 @@
 
     .dw-wrap {
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
-        --clr-bg:            #0f1117;
-        --clr-surface:       #161b27;
-        --clr-surface-2:     #1c2333;
-        --clr-border:        rgba(255,255,255,0.07);
-        --clr-border-hover:  rgba(255,255,255,0.14);
-        --clr-text:          #e2e8f0;
+        --clr-bg:            #f8fafc;
+        --clr-surface:       #ffffff;
+        --clr-surface-2:     #f1f5f9;
+        --clr-border:        rgba(0, 0, 0, 0.08);
+        --clr-border-hover:  rgba(0, 0, 0, 0.16);
+        --clr-text:          #0f172a;
         --clr-text-muted:    #64748b;
-        --clr-text-dim:      #94a3b8;
+        --clr-text-dim:      #475569;
+        --clr-hover:         rgba(0, 0, 0, 0.03);
         --clr-discord:       #5865F2;
         --clr-discord-light: #7983f5;
         --clr-emerald:       #10b981;
@@ -26,6 +27,26 @@
         --radius-sm:         8px;
         --transition:        all 0.25s cubic-bezier(0.4,0,0.2,1);
         color: var(--clr-text);
+    }
+
+    /* Dark Theme Adaptive Override */
+    :root[data-theme="dark"] .dw-wrap,
+    html[data-theme="dark"] .dw-wrap,
+    body[data-theme="dark"] .dw-wrap,
+    :root[data-bs-theme="dark"] .dw-wrap,
+    html[data-bs-theme="dark"] .dw-wrap,
+    body[data-bs-theme="dark"] .dw-wrap,
+    .theme-dark .dw-wrap,
+    .dark .dw-wrap {
+        --clr-bg:            #0f1117;
+        --clr-surface:       #161b27;
+        --clr-surface-2:     #1c2333;
+        --clr-border:        rgba(255,255,255,0.07);
+        --clr-border-hover:  rgba(255,255,255,0.14);
+        --clr-text:          #e2e8f0;
+        --clr-text-muted:    #64748b;
+        --clr-text-dim:      #94a3b8;
+        --clr-hover:         rgba(255,255,255,0.02);
     }
 
     .dw-wrap * { box-sizing: border-box; }
@@ -62,6 +83,17 @@
     .dw-brand-text h1 {
         font-size: 1.5rem; font-weight: 800; margin: 0;
         letter-spacing: -0.03em;
+        background: linear-gradient(135deg, #0f172a, #334155);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    :root[data-theme="dark"] .dw-brand-text h1,
+    html[data-theme="dark"] .dw-brand-text h1,
+    body[data-theme="dark"] .dw-brand-text h1,
+    :root[data-bs-theme="dark"] .dw-brand-text h1,
+    html[data-bs-theme="dark"] .dw-brand-text h1,
+    body[data-bs-theme="dark"] .dw-brand-text h1,
+    .theme-dark .dw-brand-text h1,
+    .dark .dw-brand-text h1 {
         background: linear-gradient(135deg, #e2e8f0, #94a3b8);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
@@ -147,7 +179,7 @@
         gap: 1rem; transition: background 0.2s;
     }
     .dw-event-row:last-child { border-bottom: none; }
-    .dw-event-row:hover { background: rgba(255,255,255,0.02); }
+    .dw-event-row:hover { background: var(--clr-hover); }
 
     .dw-event-left { display: flex; align-items: center; gap: 0.85rem; flex: 1; min-width: 0; }
     .dw-event-emoji {

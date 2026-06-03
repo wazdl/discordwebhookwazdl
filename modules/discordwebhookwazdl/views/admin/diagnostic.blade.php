@@ -8,13 +8,13 @@
 
     .dw-diag {
         font-family: 'Inter', system-ui, sans-serif;
-        --clr-bg:           #0f1117;
-        --clr-surface:      #161b27;
-        --clr-surface-2:    #1c2333;
-        --clr-border:       rgba(255,255,255,0.07);
-        --clr-text:         #e2e8f0;
-        --clr-text-muted:   #64748b;
-        --clr-text-dim:     #94a3b8;
+        --clr-bg:            #f8fafc;
+        --clr-surface:       #ffffff;
+        --clr-surface-2:     #f1f5f9;
+        --clr-border:        rgba(0, 0, 0, 0.08);
+        --clr-text:          #0f172a;
+        --clr-text-muted:    #64748b;
+        --clr-text-dim:      #475569;
         --clr-discord:      #5865F2;
         --clr-emerald:      #10b981;
         --clr-amber:        #f59e0b;
@@ -23,6 +23,24 @@
         --radius-md:        12px;
         --radius-sm:        8px;
         color: var(--clr-text);
+    }
+
+    /* Dark Theme Adaptive Override */
+    :root[data-theme="dark"] .dw-diag,
+    html[data-theme="dark"] .dw-diag,
+    body[data-theme="dark"] .dw-diag,
+    :root[data-bs-theme="dark"] .dw-diag,
+    html[data-bs-theme="dark"] .dw-diag,
+    body[data-bs-theme="dark"] .dw-diag,
+    .theme-dark .dw-diag,
+    .dark .dw-diag {
+        --clr-bg:           #0f1117;
+        --clr-surface:      #161b27;
+        --clr-surface-2:    #1c2333;
+        --clr-border:       rgba(255,255,255,0.07);
+        --clr-text:         #e2e8f0;
+        --clr-text-muted:   #64748b;
+        --clr-text-dim:     #94a3b8;
     }
     .dw-diag * { box-sizing: border-box; }
 
@@ -49,6 +67,17 @@
     }
     .dw-brand-text h1 {
         font-size: 1.4rem; font-weight: 800; margin: 0;
+        background: linear-gradient(135deg, #0f172a, #334155);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    :root[data-theme="dark"] .dw-brand-text h1,
+    html[data-theme="dark"] .dw-brand-text h1,
+    body[data-theme="dark"] .dw-brand-text h1,
+    :root[data-bs-theme="dark"] .dw-brand-text h1,
+    html[data-bs-theme="dark"] .dw-brand-text h1,
+    body[data-bs-theme="dark"] .dw-brand-text h1,
+    .theme-dark .dw-brand-text h1,
+    .dark .dw-brand-text h1 {
         background: linear-gradient(135deg, #e2e8f0, #94a3b8);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
