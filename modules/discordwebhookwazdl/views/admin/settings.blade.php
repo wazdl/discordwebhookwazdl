@@ -314,10 +314,6 @@
             </div>
         </div>
         <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
-            {{-- Hiding diagnostic console for clean production free module release --}}
-            {{-- <a href="{{ route('admin.discordwebhookwazdl.diagnostic') }}" class="dw-btn dw-btn--ghost">
-                <i class="bi bi-bug"></i> Diagnostic
-            </a> --}}
             <button id="btn-test" class="dw-btn dw-btn--emerald" type="button">
                 <i class="bi bi-send-check"></i> Tester le Webhook
             </button>
