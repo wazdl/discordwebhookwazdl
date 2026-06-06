@@ -37,7 +37,7 @@ class DiscordWebhookWazdLServiceProvider extends BaseModuleServiceProvider
 
         // ── 2. Écouteur wildcard pour découvrir les vrais noms d'événements ─
         // Cherche "[DWWL]" dans storage/logs/laravel.log pour les voir
-        $this->registerDiscoveryListener();
+        /* $this->registerDiscoveryListener(); */
 
         // ── 3. Observers sur les modèles (fallback fiable) ─────────────────
         $this->registerModelObservers();
@@ -84,7 +84,7 @@ class DiscordWebhookWazdLServiceProvider extends BaseModuleServiceProvider
      * Écouteur wildcard : log TOUS les événements pour découvrir ceux de ClientXCMS.
      * Cherche [DWWL] dans storage/logs/laravel.log
      */
-    private function registerDiscoveryListener(): void
+    /* private function registerDiscoveryListener(): void
     {
         Event::listen('*', function (string $eventName, array $data) {
             // Filtrer les événements Illuminate/Laravel internes pour ne pas polluer les logs
@@ -104,7 +104,7 @@ class DiscordWebhookWazdLServiceProvider extends BaseModuleServiceProvider
                 'data_class' => isset($data[0]) ? get_class($data[0]) : 'N/A',
             ]);
         });
-    }
+    } */
 
     /**
      * Observer les modèles directement — fallback si les événements ne correspondent pas.
