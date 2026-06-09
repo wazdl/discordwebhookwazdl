@@ -4,7 +4,6 @@ namespace App\Modules\DiscordWebhookWazdL;
 
 use App\Extensions\BaseModuleServiceProvider;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Log;
 use App\Modules\DiscordWebhookWazdL\Listeners\CustomerCreatedListener;
 use App\Modules\DiscordWebhookWazdL\Listeners\InvoiceCreatedListener;
 use App\Modules\DiscordWebhookWazdL\Listeners\InvoicePaidListener;
@@ -34,10 +33,6 @@ class DiscordWebhookWazdLServiceProvider extends BaseModuleServiceProvider
 
         // ── 1. Écouteurs d'événements Laravel ─────────────────────────────
         $this->registerEventListeners();
-
-        // ── 2. Écouteur wildcard pour découvrir les vrais noms d'événements ─
-        // Cherche "[DWWL]" dans storage/logs/laravel.log pour les voir
-        /* $this->registerDiscoveryListener(); */
 
         // ── 3. Observers sur les modèles (fallback fiable) ─────────────────
         $this->registerModelObservers();
@@ -81,32 +76,6 @@ class DiscordWebhookWazdLServiceProvider extends BaseModuleServiceProvider
     }
 
     /**
-     * Écouteur wildcard : log TOUS les événements pour découvrir ceux de ClientXCMS.
-     * Cherche [DWWL] dans storage/logs/laravel.log
-     */
-    /* private function registerDiscoveryListener(): void
-    {
-        Event::listen('*', function (string $eventName, array $data) {
-            // Filtrer les événements Illuminate/Laravel internes pour ne pas polluer les logs
-            if (str_starts_with($eventName, 'Illuminate\\')
-                || str_starts_with($eventName, 'Laravel\\')
-                || str_starts_with($eventName, 'bootstrapping')
-                || str_starts_with($eventName, 'bootstrapped')
-                || str_contains($eventName, 'eloquent.retrieved')
-                || str_contains($eventName, 'cache.')
-                || str_contains($eventName, 'log.')
-            ) {
-                return;
-            }
-
-            Log::info('[DWWL] Événement détecté : ' . $eventName, [
-                'data_keys' => array_keys($data),
-                'data_class' => isset($data[0]) ? get_class($data[0]) : 'N/A',
-            ]);
-        });
-    } */
-
-    /**
      * Observer les modèles directement — fallback si les événements ne correspondent pas.
      * Tente plusieurs noms de modèles possibles selon la version de ClientXCMS.
      */
@@ -128,7 +97,6 @@ class DiscordWebhookWazdLServiceProvider extends BaseModuleServiceProvider
                     $model::created(function ($customer) {
                         (new CustomerCreatedListener())->handle((object) ['customer' => $customer]);
                     });
-                    Log::info('[DWWL] Observer Customer enregistré sur : ' . $model);
                     break; // On s'arrête au premier modèle trouvé
                 } catch (\Throwable $e) {
                     // Continuer avec le prochain modèle
@@ -156,7 +124,6 @@ class DiscordWebhookWazdLServiceProvider extends BaseModuleServiceProvider
                             (new InvoicePaidListener())->handle((object) ['invoice' => $invoice]);
                         }
                     });
-                    Log::info('[DWWL] Observer Invoice enregistré sur : ' . $model);
                     break;
                 } catch (\Throwable $e) {
                     // Continuer
@@ -197,7 +164,6 @@ class DiscordWebhookWazdLServiceProvider extends BaseModuleServiceProvider
                             (new ServiceExpiredListener())->handle((object) ['service' => $service]);
                         }
                     });
-                    Log::info('[DWWL] Observer Service enregistré sur : ' . $model);
                     break;
                 } catch (\Throwable $e) {
                     // Continuer

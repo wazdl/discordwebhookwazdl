@@ -4,7 +4,6 @@ namespace App\Modules\DiscordWebhookWazdL\Services;
 
 use App\Modules\DiscordWebhookWazdL\Models\DiscordWebhookWazdLSettings;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class DiscordWebhookService
 {
@@ -118,20 +117,9 @@ class DiscordWebhookService
             }
 
             // 6. Envoyer
-            $response = Http::timeout(5)->post($settings->webhook_url, $payload);
-
-            if (!$response->successful()) {
-                Log::warning('[DiscordWebhookWazdL] Échec envoi webhook', [
-                    'event'  => $event,
-                    'status' => $response->status(),
-                    'body'   => substr($response->body(), 0, 500),
-                ]);
-            }
+            Http::timeout(5)->post($settings->webhook_url, $payload);
         } catch (\Throwable $e) {
-            Log::error('[DiscordWebhookWazdL] Exception lors de l\'envoi webhook', [
-                'event'   => $event,
-                'message' => $e->getMessage(),
-            ]);
+            // Silence
         }
     }
 
@@ -168,7 +156,6 @@ class DiscordWebhookService
             $response = Http::timeout(5)->post($webhookUrl, $payload);
             return $response->successful();
         } catch (\Throwable $e) {
-            Log::error('[DiscordWebhookWazdL] Exception test webhook: ' . $e->getMessage());
             return false;
         }
     }

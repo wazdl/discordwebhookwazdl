@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Modules\DiscordWebhookWazdL\Models\DiscordWebhookWazdLSettings;
 use App\Modules\DiscordWebhookWazdL\Services\DiscordWebhookService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 
 class DiscordWebhookAdminController extends Controller
 {
@@ -89,50 +88,5 @@ class DiscordWebhookAdminController extends Controller
         }
 
         return response()->json(['success' => false, 'message' => '❌ Échec de l\'envoi. Vérifiez l\'URL du webhook.'], 400);
-    }
-
-    /**
-     * Lit les N dernières lignes du log Laravel et filtre celles taguées [DWWL].
-     * Utilisé pour le diagnostic dans l'admin.
-     */
-    public function diagnostic()
-    {
-        $logPath = storage_path('logs/laravel.log');
-        $lines   = [];
-
-        if (!File::exists($logPath)) {
-            // Support du canal "daily" (laravel-YYYY-MM-DD.log)
-            $dailyFiles = glob(storage_path('logs/laravel-*.log'));
-            if (!empty($dailyFiles)) {
-                // Trier par date de modification décroissante pour prendre le plus récent
-                usort($dailyFiles, function ($a, $b) {
-                    return filemtime($b) <=> filemtime($a);
-                });
-                $logPath = $dailyFiles[0];
-            }
-        }
-
-        if (File::exists($logPath)) {
-            // Lire les 3000 dernières lignes du log
-            $all = array_slice(file($logPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES), -3000);
-            foreach ($all as $line) {
-                if (str_contains($line, '[DWWL]')) {
-                    $lines[] = htmlspecialchars($line, ENT_QUOTES, 'UTF-8');
-                }
-            }
-            $lines = array_slice(array_reverse($lines), 0, 100); // 100 plus récents
-        }
-
-        $settings = DiscordWebhookWazdLSettings::getInstance();
-        return view('discordwebhookwazdl::admin.diagnostic', compact('lines', 'settings'));
-    }
-
-    /**
-     * Vide les entrées [DWWL] du log (optionnel, utile en prod).
-     */
-    public function clearLog()
-    {
-        // On ne vide pas tout le log, juste on informe l'utilisateur
-        return response()->json(['success' => true, 'message' => 'Relancez une action sur le panel pour voir les nouveaux événements.']);
     }
 }
